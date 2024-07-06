@@ -7,10 +7,10 @@ export const PostList = () => {
   } = usePostsContext();
 
   return (
-    <>
+    <div className="flex flex-col gap-8">
       {posts.map((post) => (
         <Post key={post.id} {...post} />
       ))}
-    </>
+    </div>
   );
 };

@@ -103,15 +103,17 @@ export const Post = (props: IPost) => {
 
       <Claps claps={claps} source="post" postId={id} />
 
-      <div className="mt-8 flex flex-col gap-6">
-        {comments.map((comment, index) => (
-          <Comment
-            key={`${index}-${comment.publishedAt.toISOString()}`}
-            comment={comment}
-            postId={id}
-          />
-        ))}
-      </div>
+      {!!comments.length && (
+        <div className="mt-8 flex flex-col gap-6">
+          {comments.map((comment, index) => (
+            <Comment
+              key={`${index}-${comment.publishedAt.toISOString()}`}
+              comment={comment}
+              postId={id}
+            />
+          ))}
+        </div>
+      )}
     </article>
   );
 };

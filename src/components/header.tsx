@@ -1,4 +1,4 @@
-import igniteLogo from "@assets/ignite-feed.svg";
+import igniteLogo from "@assets/logo.svg";
 
 export const Header = () => {
   return (

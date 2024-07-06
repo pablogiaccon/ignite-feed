@@ -1,4 +1,3 @@
-import { Trash } from "phosphor-react";
 import { formatDistanceToNow } from "date-fns";
 
 import { IPostComment } from "@models/index";
@@ -6,6 +5,7 @@ import { formatDate } from "@utils/index";
 
 import { Avatar } from "./avatar";
 import { Claps } from "./claps";
+import { DeleteComment } from "./delete-comment";
 
 interface IProps {
   postId: string;
@@ -48,13 +48,7 @@ export const Comment = (props: IProps) => {
               </time>
             </div>
 
-            <button
-              className="text-gray-400 cursor-pointer leading-[0] hover:text-red-500 transition"
-              title="Delete comment"
-              type="button"
-            >
-              <Trash size={24} />
-            </button>
+            <DeleteComment postId={postId} commentId={id} />
           </header>
 
           <p className="text-gray-300">{content.content}</p>
