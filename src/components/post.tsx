@@ -8,7 +8,7 @@ export const Post = () => {
     <article className="bg-gray-800 rounded-lg p-10">
       <header className="flex gap-4 justify-between">
         <div className="flex gap-4">
-          <Avatar />
+          <Avatar src="https:github.com/pablogiaccon.png" />
 
           <div className="flex flex-col">
             <strong className="text-gray-100">Pablo Giaccon</strong>

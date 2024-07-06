@@ -4,7 +4,7 @@ import { Avatar } from "./avatar";
 export const Comment = () => {
   return (
     <div className="flex gap-4">
-      <Avatar highlight={false} />
+      <Avatar src="https:github.com/pablogiaccon.png" highlight={false} />
 
       <div className="flex-1 flex gap-4 flex-col">
         <div className="bg-gray-700 p-4 rounded-lg flex gap-4 flex-col">

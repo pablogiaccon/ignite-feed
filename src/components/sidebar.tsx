@@ -11,7 +11,7 @@ export const Sidebar = () => {
       />
 
       <div className="flex flex-col items-center -mt-6">
-        <Avatar />
+        <Avatar src="https:github.com/pablogiaccon.png" />
         <strong className="mt-4 text-gray-100">Pablo Giaccon</strong>
         <span className="text-sm text-gray-400">Senior Frontend Developer</span>
       </div>
