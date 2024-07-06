@@ -24,3 +24,9 @@ body, input, textarea, button {
   outline: transparent;
   box-shadow: 0 0 0 2px #00875F;
 }
+
+@media (max-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+}
