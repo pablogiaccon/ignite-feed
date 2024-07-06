@@ -1,22 +1,50 @@
-import { ThumbsUp, Trash } from "phosphor-react";
-import { Avatar } from "./avatar";
+import { Trash } from "phosphor-react";
+import { formatDistanceToNow } from "date-fns";
 
-export const Comment = () => {
+import { IPostComment } from "@models/index";
+import { formatDate } from "@utils/index";
+
+import { Avatar } from "./avatar";
+import { Claps } from "./claps";
+
+interface IProps {
+  postId: string;
+  comment: IPostComment;
+}
+
+export const Comment = (props: IProps) => {
+  const {
+    comment: {
+      author: { image, name },
+      claps,
+      content,
+      publishedAt,
+      id,
+    },
+    postId,
+  } = props;
+
+  const publishedDateFormatted = formatDate(publishedAt);
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    addSuffix: true,
+  });
+
   return (
     <div className="flex gap-4">
-      <Avatar src="https:github.com/pablogiaccon.png" highlight={false} />
+      <Avatar src={image} highlight={false} />
 
       <div className="flex-1 flex gap-4 flex-col">
         <div className="bg-gray-700 p-4 rounded-lg flex gap-4 flex-col">
           <header className="flex items-start justify-between">
             <div className="flex flex-col">
-              <strong className="text-gray-100 text-sm">Pablo Giaccon</strong>
+              <strong className="text-gray-100 text-sm">{name}</strong>
               <time
                 className="text-xs text-gray-400"
-                title="05 of July at 16:00h"
-                dateTime="2024-07-05 16:00:00"
+                title={publishedDateFormatted}
+                dateTime={publishedAt.toISOString()}
               >
-                Published 1 hour ago
+                Published {publishedDateRelativeToNow}
               </time>
             </div>
 
@@ -29,18 +57,16 @@ export const Comment = () => {
             </button>
           </header>
 
-          <p className="text-gray-300">Muito bom Devon, parabéns! 👏👏</p>
+          <p className="text-gray-300">{content.content}</p>
         </div>
 
         <footer>
-          <button
-            className="text-gray-400 cursor-pointer flex items-center hover:text-green-300 transition rounded-sm"
-            type="button"
-          >
-            <ThumbsUp className="mr-2" size={20} />
-            Claps{" "}
-            <span className="before:px-1 before:content-['\2022']">20</span>
-          </button>
+          <Claps
+            claps={claps}
+            source="comment"
+            postId={postId}
+            commentId={id}
+          />
         </footer>
       </div>
     </div>

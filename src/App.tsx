@@ -3,6 +3,7 @@ import "./styles/global.css";
 
 import { Header } from "@components/header";
 import { Post } from "@components/post";
+import { POSTS } from "./mocks/posts";
 
 export const App = () => {
   return (
@@ -13,7 +14,9 @@ export const App = () => {
         <Sidebar />
 
         <main>
-          <Post />
+          {POSTS.map((post) => (
+            <Post key={post.id} {...post} />
+          ))}
         </main>
       </div>
     </>

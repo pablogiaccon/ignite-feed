@@ -1,70 +1,83 @@
+import { formatDistanceToNow } from "date-fns";
+
+import { IPost, IPostContent } from "@models/index";
+import { formatDate } from "@utils/format-date";
+
 import { Avatar } from "./avatar";
 import { Comment } from "./comment";
 
 import styles from "../styles/post.module.css";
+import { Claps } from "./claps";
 
-export const Post = () => {
+export const Post = (props: IPost) => {
+  const {
+    publishedAt,
+    author: { name, image },
+    content,
+    role,
+    comments,
+    claps,
+    id,
+  } = props;
+
+  const publishedDateFormatted = formatDate(publishedAt);
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    addSuffix: true,
+  });
+
+  function getContentElement(line: IPostContent) {
+    try {
+      switch (line.type) {
+        case "paragraph": {
+          return line.content;
+        }
+        case "link": {
+          return (
+            <a
+              className="font-bold text-green-500 hover:text-green-300 transition"
+              href="#"
+            >
+              {line.content}
+            </a>
+          );
+        }
+        default: {
+          throw "Content type not mapped!";
+        }
+      }
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  }
+
   return (
     <article className="bg-gray-800 rounded-lg p-10">
       <header className="flex gap-4 justify-between">
         <div className="flex gap-4">
-          <Avatar src="https:github.com/pablogiaccon.png" />
+          <Avatar src={image} />
 
           <div className="flex flex-col">
-            <strong className="text-gray-100">Pablo Giaccon</strong>
-            <span className="text-sm text-gray-400">
-              Senior Frontend Developer
-            </span>
+            <strong className="text-gray-100">{name}</strong>
+            <span className="text-sm text-gray-400">{role}</span>
           </div>
         </div>
 
         <time
           className="text-sm text-gray-400"
-          title="05 of July at 16:00h"
-          dateTime="2024-07-05 16:00:00"
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
         >
-          Published 1 hour ago
+          Published {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className="text-sm text-gray-300 mt-6">
-        <p className="mt-4">Fala galeraa 👋</p>
-
-        <p className="mt-4">
-          Acabei de subir mais um projeto no meu portifa. É um projeto que fiz
-          no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
-        </p>
-
-        <p className="mt-4">
-          👉{" "}
-          <a
-            className="font-bold text-green-500 hover:text-green-300 transition"
-            href="#"
-          >
-            jane.design/doctorcare
-          </a>
-        </p>
-
-        <p className="mt-4">
-          <a
-            className="font-bold text-green-500 hover:text-green-300 transition"
-            href="#"
-          >
-            #novoprojeto
-          </a>{" "}
-          <a
-            className="font-bold text-green-500 hover:text-green-300 transition"
-            href="#"
-          >
-            #nlw
-          </a>{" "}
-          <a
-            className="font-bold text-green-500 hover:text-green-300 transition"
-            href="#"
-          >
-            #rocketseat
-          </a>
-        </p>
+        {content.map((line, index) => (
+          <p key={index} className="mt-4">
+            {getContentElement(line)}
+          </p>
+        ))}
       </div>
 
       <form
@@ -88,10 +101,16 @@ export const Post = () => {
         </footer>
       </form>
 
+      <Claps claps={claps} source="post" postId={id} />
+
       <div className="mt-8 flex flex-col gap-6">
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((comment, index) => (
+          <Comment
+            key={`${index}-${comment.publishedAt.toISOString()}`}
+            comment={comment}
+            postId={id}
+          />
+        ))}
       </div>
     </article>
   );
