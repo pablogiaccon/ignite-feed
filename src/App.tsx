@@ -1,9 +1,10 @@
-import { Sidebar } from "@components/sidebar";
-import "./styles/global.css";
+import { PostProvider } from "./hooks";
 
+import { Sidebar } from "@components/sidebar";
 import { Header } from "@components/header";
-import { Post } from "@components/post";
-import { POSTS } from "./mocks/posts";
+import { PostList } from "@components/post-list";
+
+import "./styles/global.css";
 
 export const App = () => {
   return (
@@ -14,9 +15,9 @@ export const App = () => {
         <Sidebar />
 
         <main>
-          {POSTS.map((post) => (
-            <Post key={post.id} {...post} />
-          ))}
+          <PostProvider>
+            <PostList />
+          </PostProvider>
         </main>
       </div>
     </>
