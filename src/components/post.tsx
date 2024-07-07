@@ -80,8 +80,12 @@ export const Post = (props: IPost) => {
         ))}
       </div>
 
+      <div className="mt-6 mb-4 w-full border-t border-t-gray-600" />
+
+      <Claps claps={claps} source="post" postId={id} />
+
       <form
-        className={`w-full mt-6 pt-6 border-t border-t-gray-600 focus-within:visible focus-within:max-h-none ${styles.formComment}`}
+        className={`w-full pt-6 focus-within:visible focus-within:max-h-none ${styles.formComment}`}
         action=""
       >
         <strong className="text-sm text-gray-100">Give your feedback</strong>
@@ -100,8 +104,6 @@ export const Post = (props: IPost) => {
           </button>
         </footer>
       </form>
-
-      <Claps claps={claps} source="post" postId={id} />
 
       {!!comments.length && (
         <div className="mt-8 flex flex-col gap-6">
