@@ -54,13 +54,22 @@ export const getRandomComments = (): IPostComment[] => {
     "Great insights, much appreciated.",
     "Interesting read, thank you!",
   ];
+  const roles = [
+    "Senior Developer",
+    "Front-end Developer",
+    "Full-stack Developer",
+    "QA Engineer",
+    "DevOps Engineer",
+  ];
 
   const comments: IPostComment[] = [];
   const numComments = Math.floor(Math.random() * 5) + 1;
-  const numClaps = Math.floor(Math.random() * 50) + 1;
 
   for (let i = 0; i < numComments; i++) {
+    const numClaps = Math.floor(Math.random() * 50) + 1;
     const name = names[Math.floor(Math.random() * names.length)];
+    const role = roles[Math.floor(Math.random() * roles.length)];
+
     const comment: IPostComment = {
       id: uuidv4(),
       author: {
@@ -70,6 +79,7 @@ export const getRandomComments = (): IPostComment[] => {
           " ",
           ""
         )}.png?size=50x50&set=set5`,
+        role,
       },
       publishedAt: new Date(
         Date.now() - Math.floor(Math.random() * 1000000000)

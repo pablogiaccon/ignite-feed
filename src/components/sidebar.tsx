@@ -1,7 +1,10 @@
 import { PencilSimpleLine } from "phosphor-react";
 import { Avatar } from "./avatar";
+import { USER_DATA } from "../mocks/user";
 
 export const Sidebar = () => {
+  const { image, name, role } = USER_DATA;
+
   return (
     <aside className="bg-gray-800 rounded-lg overflow-hidden">
       <img
@@ -11,9 +14,9 @@ export const Sidebar = () => {
       />
 
       <div className="flex flex-col items-center -mt-6">
-        <Avatar src="https:github.com/pablogiaccon.png" />
-        <strong className="mt-4 text-gray-100">Pablo Giaccon</strong>
-        <span className="text-sm text-gray-400">Senior Frontend Developer</span>
+        <Avatar src={image} />
+        <strong className="mt-4 text-gray-100">{name}</strong>
+        <span className="text-sm text-gray-400">{role}</span>
       </div>
 
       <footer className="border-t border-t-gray-600 mt-6 p-8 pt-6">

@@ -1,10 +1,12 @@
-interface IProps {
+import { ImgHTMLAttributes } from "react";
+
+interface IProps extends ImgHTMLAttributes<HTMLImageElement> {
   highlight?: boolean;
   src: string;
 }
 
 export const Avatar = (props: IProps) => {
-  const { highlight = true, src } = props;
+  const { highlight = true, src, ...rest } = props;
   return (
     <img
       className={`w-12 h-12 rounded-lg  ${
@@ -13,6 +15,7 @@ export const Avatar = (props: IProps) => {
       } `}
       src={src}
       alt=""
+      {...rest}
     />
   );
 };

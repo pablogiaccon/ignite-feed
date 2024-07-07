@@ -4,17 +4,16 @@ import { IPost, IPostContent } from "@models/index";
 import { formatDate } from "@utils/format-date";
 
 import { Avatar } from "./avatar";
-import { Comment } from "./comment";
 
-import styles from "../styles/post.module.css";
 import { Claps } from "./claps";
+import { NewComment } from "./new-comment";
+import { CommentsList } from "./comments-list";
 
 export const Post = (props: IPost) => {
   const {
     publishedAt,
-    author: { name, image },
+    author: { name, image, role },
     content,
-    role,
     comments,
     claps,
     id,
@@ -84,38 +83,9 @@ export const Post = (props: IPost) => {
 
       <Claps claps={claps} source="post" postId={id} />
 
-      <form
-        className={`w-full pt-6 focus-within:visible focus-within:max-h-none ${styles.formComment}`}
-        action=""
-      >
-        <strong className="text-sm text-gray-100">Give your feedback</strong>
+      <NewComment postId={id} />
 
-        <textarea
-          className="w-full bg-gray-900 border-0 resize-none h-24 p-4 rounded-lg text-gray-100 text-sm mt-4"
-          placeholder="Left a comment"
-        />
-
-        <footer>
-          <button
-            className="px-6 py-4 mt-4 border-0 bg-green-500 text-white font-bold cursor-pointer rounded-lg transition hover:bg-green-300"
-            type="submit"
-          >
-            Submit
-          </button>
-        </footer>
-      </form>
-
-      {!!comments.length && (
-        <div className="mt-8 flex flex-col gap-6">
-          {comments.map((comment, index) => (
-            <Comment
-              key={`${index}-${comment.publishedAt.toISOString()}`}
-              comment={comment}
-              postId={id}
-            />
-          ))}
-        </div>
-      )}
+      <CommentsList comments={comments} postId={id} />
     </article>
   );
 };

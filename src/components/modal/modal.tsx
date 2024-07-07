@@ -30,6 +30,7 @@ function Modal(props: IProps) {
     } else {
       unlock();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   return (

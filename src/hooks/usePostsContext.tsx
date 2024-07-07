@@ -7,17 +7,13 @@ import {
   useState,
 } from "react";
 import { isEmpty } from "lodash";
-import { v4 as uuidv4 } from "uuid";
 
 import { IPost } from "@models/index";
 import { POSTS } from "../mocks/posts";
 
 interface IContextData {
   postsState: [IPost[], Dispatch<SetStateAction<IPost[]>>];
-  userId: string;
 }
-
-const userId = uuidv4();
 
 const PostContext = createContext<IContextData>({} as IContextData);
 
@@ -29,7 +25,7 @@ export function PostProvider(props: IProps) {
   const postsState = useState<IPost[]>(POSTS);
 
   return (
-    <PostContext.Provider value={{ postsState, userId }}>
+    <PostContext.Provider value={{ postsState }}>
       {props.children}
     </PostContext.Provider>
   );

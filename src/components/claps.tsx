@@ -1,5 +1,6 @@
 import { usePostsContext } from "@hooks/usePostsContext";
 import { ThumbsUp } from "phosphor-react";
+import { USER_DATA } from "../mocks/user";
 
 interface ICommentClaps {
   claps: string[];
@@ -20,8 +21,8 @@ type TProps = ICommentClaps | IPostClaps;
 export const Claps = (props: TProps) => {
   const {
     postsState: [, setPosts],
-    userId,
   } = usePostsContext();
+  const { id: userId } = USER_DATA;
   const { claps, source, postId, commentId } = props;
 
   const clapsCount = claps.length;

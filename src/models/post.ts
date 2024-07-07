@@ -1,7 +1,6 @@
 export interface IPost {
   id: string;
   author: IPostAuthor;
-  role: string;
   publishedAt: Date;
   content: IPostContent[];
   comments: IPostComment[];
@@ -12,6 +11,7 @@ export interface IPostAuthor {
   name: string;
   id: string;
   image: string;
+  role: string;
 }
 
 export interface IPostContent {
